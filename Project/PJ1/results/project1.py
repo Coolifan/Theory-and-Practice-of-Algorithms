@@ -3,8 +3,8 @@ Math 590
 Project 1
 Fall 2018
 
-Partner 1: Haohong Zhao
-Partner 2: Yifan Li
+Partner 1: Yifan Li
+Partner 2: Haohong Zhao
 Date: 10/29/18
 """
 
