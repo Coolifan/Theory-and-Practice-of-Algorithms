@@ -3,9 +3,9 @@ Math 590
 Project 2
 Fall 2018
 
-Partner 1: Yifan Li, yl506@duke.edu
-Partner 2: Haohong Zhao, hz147@duke.edu
-Date: 11/14/2018
+Partner 1:
+Partner 2:
+Date:
 """
 
 # Import math.
@@ -29,60 +29,7 @@ def bdfs(maze, alg):
         raise Exception('Incorrect alg! Need BFS or DFS!')
 
     ##### Your implementation goes here. #####
-    path = []
-    
-    if alg == 'DFS':
-        stack = Stack()
-        # No vertex visited yet. Push the start vertex onto our stack.
-        stack.push(maze.start)
-        
-        while not stack.isEmpty():
-            current = stack.pop() # Get the current vertex.
-            # Mark as visited.
-            current.visited = True
-            # If the current vertex is the exit, trace back to record the path.
-            if current.rank == maze.exit.rank:
-                while current != None:
-                    path.append(current.rank)
-                    current = current.prev
-                path.reverse()
-                break
-            # Push all neighbors onto the stack.
-            # Then record where we came from.
-            # If they have not already been visited.
-            for neighbor in current.neigh:
-                if neighbor.visited == False:
-                    stack.push(neighbor)
-                    neighbor.prev = current
-        return path
-    
-    else:
-        queue = Queue()
-        # All vertices are set to have an infinite distance.
-        # Push the start vertex into the queue and set dist = 0.
-        queue.push(maze.start)
-        queue.queue[0].dist = 0
-        
-        while not queue.isEmpty():
-            current = queue.pop() # Get the current vertex.
-            # If the current vertex is the exit, trace back to record the path.
-            if current.rank == maze.exit.rank:
-                while current != None:
-                    path.append(current.rank)
-                    current = current.prev
-                path.reverse()
-                break
-            # Look at all of its neighbors.
-            for neighbor in current.neigh:
-                # If the neighbor’s dist not updated.
-                if neighbor.dist == math.inf:
-                    # Push the neighbor into the queue.
-                    queue.push(neighbor)
-                    # Update its distance and track path.
-                    neighbor.dist = current.dist + 1
-                    neighbor.prev = current
-        return path    
-    
+    return []
     ##### Your implementation goes here. #####
 
 ################################################################################
@@ -146,40 +93,17 @@ class Stack:
 
     """
     push function to push a value onto the stack.
-
-    INPUTS: 
-    self: the stack object
-    val: the value(vertex object) that will be pushed onto the stack.
-
-    NO OUTPUTS
     """
     def push(self, val):
         ##### IMPLEMENT! #####
-        # Resize the stack array if it is full.
-        if self.isFull() == True:
-            self.resize()
-        self.top += 1 # Increment the top index.
-        self.stack[self.top] = val # Set the value.
-        self.numElems += 1 # Increment the size of the stack array.
         return
 
     """
     pop function to pop the value off the top of the stack.
-
-    INPUTS:
-    self: the stack object
-
-    OUTPUTS:
-    popedVal: the vertex on the top of the stack that is poped.
     """
     def pop(self):
         ##### IMPLEMENT! #####
-        if self.isEmpty() == True:
-            return None
-        popedVal = self.stack[self.top]
-        self.top -= 1 # Decrement the top index.
-        self.numElems -= 1 # Decrement the size.
-        return popedVal
+        return None
 
 ################################################################################
 
@@ -201,7 +125,7 @@ class Queue:
     Note: intially the size of the queue defaults to 100.
     Note: the queue is initally filled with None values.
     """
-    def __init__(self, size=100):
+    def __init__(self, size=3):
         self.queue = [None for x in range(0,size)]
         self.front = 0
         self.rear = 0
@@ -254,41 +178,17 @@ class Queue:
 
     """
     push function to push a value into the rear of the queue.
-
-    INPUTS:
-    self: the queue object
-    val: the value (vertex object) that will be pushed into the rear of queue.
-
-    NO OUTPUTS:
     """
     def push(self, val):
         ##### IMPLEMENT! #####
-        if self.isFull(): # Resize the array if it is full.
-            self.resize()
-        self.queue[self.rear] = val # Set the value.
-        self.numElems += 1 # Increment the size.
-        # Increment the rear index and mod the size of queue to wrap around.
-        self.rear = (self.rear + 1) % len(self.queue) 
         return
 
     """
     pop function to pop the value from the front of the queue.
-
-    INPUTS:
-    self: the queue object
-
-    OUTPUTS:
-    popedVal: the vertex on the front of the queue that is poped.
     """
     def pop(self):
         ##### IMPLEMENT! #####
-        if self.isEmpty():
-            return None
-        popedVal = self.queue[self.front]
-        # Increment the front index and mod the size of queue to wrap around.
-        self.front = (self.front + 1) % len(self.queue)
-        self.numElems -= 1 # Decrement the size.
-        return popedVal
+        return None
 
 ################################################################################
 
@@ -562,7 +462,7 @@ class Maze:
     solve function calls implemented bdfs using the input alg.
     Note: set verbosity to True to print out the resulting maze/path.
     """
-    def solve(self, alg, verbosity=True):
+    def solve(self, alg, verbosity=False):
         self.path = bdfs(self, alg)
         if len(self.path) == 0:
             print('Maze not solved!\n')

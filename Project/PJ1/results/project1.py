@@ -83,7 +83,7 @@ def BubbleSort(A):
                 A[j], A[j+1] = A[j+1], A[j]
         
     return A
-
+# PARTIALLY WRONG! NO FLAG USED TO INDICATE. USE A WHILE LOOP AS OUTER LOOP
 """
 MergeSort
 
